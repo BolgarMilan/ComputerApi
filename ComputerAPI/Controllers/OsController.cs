@@ -46,7 +46,8 @@ namespace ComputerAPI.Controllers
         public async Task<ActionResult<OSystem>> GetById(Guid id)
         {
             var os = await computerContext.Os.SingleOrDefaultAsync(o => o.Id == id);
-            if (os != null) {
+            if (os != null)
+            {
                 return Ok(os);
             }
             return NotFound(new { message = "Nincs találat." });
@@ -56,7 +57,8 @@ namespace ComputerAPI.Controllers
         public async Task<ActionResult<OSystem>> Put(UpdateOsDto updateOsDto, Guid id)
         {
             var existingOs = await computerContext.Os.FirstOrDefaultAsync(o => o.Id == id);
-            if (existingOs != null) {
+            if (existingOs != null)
+            {
                 existingOs.Name = updateOsDto.Name;
                 computerContext.Os.Update(existingOs);
                 await computerContext.SaveChangesAsync();
@@ -64,4 +66,18 @@ namespace ComputerAPI.Controllers
             }
             return NotFound(new { message = "Nincs találat." });
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<OSystem>> Delete(Guid id)
+        {
+            var Os = await computerContext.Os.FirstOrDefaultAsync(o => o.Id == id);
+            if (Os != null)
+            {
+                computerContext.Os.Remove(Os);
+                await computerContext.SaveChangesAsync();
+                return Ok(Os);
+            }
+            return NotFound(new { message = "Nincs találat." });
+        }
+    }
 }
