@@ -19,5 +19,5 @@ public partial class Comp
 
     public Guid? OsId { get; set; }
 
-    public virtual O? Os { get; set; }
+    public virtual OSystem? Os { get; set; }
 }
