@@ -1,6 +1,8 @@
 ﻿using ComputerAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Numerics;
 
 namespace ComputerAPI.Controllers
 {
@@ -32,6 +34,12 @@ namespace ComputerAPI.Controllers
                 return StatusCode(201, os);
             }
             return BadRequest();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<OSystem>> Get()
+        {
+            return Ok(await computerContext.Os.ToListAsync());
         }
     }
 }
