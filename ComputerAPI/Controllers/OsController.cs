@@ -41,5 +41,15 @@ namespace ComputerAPI.Controllers
         {
             return Ok(await computerContext.Os.ToListAsync());
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<OSystem>> GetById(Guid id)
+        {
+            var os = await computerContext.Os.SingleOrDefaultAsync(o => o.Id == id);
+            if (os != null) {
+                return Ok(os);
+            }
+            return NotFound(new { message = "Nincs találat."});
+        }
     }
 }
